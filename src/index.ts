@@ -2,10 +2,21 @@ import { Command, OptionValues } from "commander";
 import exec from "exec-sh";
 import figlet from "figlet";
 import "dotenv/config";
+import ejs from "ejs";
+import fs from "fs";
 
-const execSh = exec.promise;
+const create = async (username: string, projectId: string) => {
+  const { output: outFile } = program.opts();
 
-const create = async () => {};
+  const template = fs.readFileSync("template/index.ejs.html", "utf-8");
+  const contents = ejs.render(template, {});
+
+  if (outFile) {
+    fs.writeFileSync(outFile, contents);
+  } else {
+    console.log(contents);
+  }
+};
 
 const program = new Command();
 
@@ -22,4 +33,7 @@ program
   .argument("<project id>", "The project id (usually a number)")
   .action(create);
 
-program.option("-d, --debug", "Prints debug information").parse(process.argv);
+program
+  .option("-d, --debug", "Prints debug information")
+  .option("-o, --output <file>", "Output HTML file")
+  .parse(process.argv);
