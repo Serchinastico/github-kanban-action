@@ -1,0 +1,4 @@
+{
+  "watch": ["src/", "template/"],
+  "ext": "ts, html"
+}
