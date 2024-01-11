@@ -5,10 +5,14 @@
   "author": "Serchinastico",
   "main": "src/index.ts",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "build": "run-s build:dir build:code build:css build:assets",
+    "build:dir": "mkdir out",
+    "build:assets": "cp -r template/img out",
+    "build:code": "tsx src/index.ts -- create serchinastico 5",
+    "build:css": "npx tailwindcss -i ./template/styles.css -o ./out/styles.css",
     "dev": "run-p dev:css dev:code dev:out",
-    "dev:css": "npx tailwindcss -i ./template/styles.css -o ./out/styles.css --watch",
     "dev:code": "npx nodemon src/index.ts create serchinastico 5",
+    "dev:css": "npx tailwindcss -i ./template/styles.css -o ./out/styles.css --watch",
     "dev:out": "live-server out"
   },
   "dependencies": {
