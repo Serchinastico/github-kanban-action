@@ -1,4 +1,7 @@
 {
   "watch": ["src/", "template/"],
-  "ext": "ts, html"
+  "ext": "ts, html, svg",
+  "events": {
+    "restart": "cp -r template/img out"
+  }
 }

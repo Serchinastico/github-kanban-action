@@ -6,10 +6,10 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "tsx src/index.ts",
-    "watch": "run-p watch:css watch:code watch:out",
-    "watch:css": "npx tailwindcss -i ./template/styles.css -o ./out/styles.css --watch",
-    "watch:code": "npx nodemon src/index.ts create serchinastico 5",
-    "watch:out": "live-server out"
+    "dev": "run-p dev:css dev:code dev:out",
+    "dev:css": "npx tailwindcss -i ./template/styles.css -o ./out/styles.css --watch",
+    "dev:code": "npx nodemon src/index.ts create serchinastico 5",
+    "dev:out": "live-server out"
   },
   "dependencies": {
     "@octokit/graphql": "^7.0.2",

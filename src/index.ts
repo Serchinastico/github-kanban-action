@@ -106,8 +106,6 @@ const create = async (username: string, projectId: string) => {
     }
   );
 
-  console.log("user", JSON.stringify(user));
-
   assert(user.projectV2?.items.nodes);
 
   const statusField = user.projectV2.field as ProjectV2SingleSelectField;
