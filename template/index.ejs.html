@@ -20,14 +20,14 @@
       <%= title %>
     </p>
 
-    <p class="text-md font-regular p-4 italic font-space">
+    <p class="text-md font-regular p-4 italic font-space md:text-center md:p-8">
       <%= description %>
     </p>
   </header>
 
-  <section class="p-4">
+  <section class="p-4 flex flex-col md:flex-row">
     <% project.status.forEach((status) => { %>
-    <div class="mb-8" x-data="{ isOpen: true }">
+    <div class="mb-8 flex-1" x-data="{ isOpen: true }">
       <div class="flex flex-row items-center mb-4 cursor-pointer" @click="isOpen = !isOpen">
         <div class="text-2xl font-bold font-marker"><%= status.name %></div>
         <img x-show="!isOpen" src="img/chevron-right.svg" class="ml-2" />
