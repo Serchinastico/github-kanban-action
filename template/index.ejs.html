@@ -1,54 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Serchinastico's Kanban</title>
-    <!-- Meta -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link href="/styles.css" rel="stylesheet" />
-  </head>
-  <body class="flex-1">
-    <header>
-      <p
-        class="flex-1 text-4xl font-bold text-center py-6 bg-ash text-white font-marker"
-      >
-        <%= title %>
-      </p>
 
-      <p class="text-md font-regular p-4 italic font-space">
-        <%= description %>
-      </p>
-    </header>
+<head>
+  <title>Serchinastico's Kanban</title>
+  <!-- Meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="/styles.css" rel="stylesheet" />
+</head>
 
-    <section class="p-4">
-      <% project.status.forEach((status) => { %>
-      <div class="mb-8">
-        <p class="text-2xl font-bold font-marker mb-4"><%= status.name %></p>
+<body class="flex-1 bg-cloud">
+  <header>
+    <p class="flex-1 text-4xl font-bold text-center py-6 bg-ash text-white font-marker">
+      <%= title %>
+    </p>
 
+    <p class="text-md font-regular p-4 italic font-space">
+      <%= description %>
+    </p>
+  </header>
+
+  <section class="p-4">
+    <% project.status.forEach((status) => { %>
+    <div class="mb-8" x-data="{ isOpen: true }">
+      <div class="flex flex-row items-center mb-4 cursor-pointer" @click="isOpen = !isOpen">
+        <div class="text-2xl font-bold font-marker"><%= status.name %></div>
+        <img x-show="!isOpen" src="img/chevron-right.svg" class="ml-2" />
+        <img x-show="isOpen" src="img/chevron-down.svg" class="ml-2" />
+      </div>
+
+      <div x-show="isOpen">
+        <% if (status.issues.length === 0) { %>
+        <p class="mt-6 font-marker text-center text-2xl text-ash opacity-20 <%= Math.random() < 0.5 ? "rotate-3" : "-rotate-3" %>">Nothing here!</p>
+        <% } else { %>
         <% status.issues.forEach((issue) => { %>
-        <div>
-          <p class="text-lg font-space font-bold"><%= issue.title %></p>
-          <div class="flex-row w-fit mb-4">
+        <div class="shadow-md rounded-md mt-4 py-3 px-4 bg-white <%= Math.random() < 0.5 ? "rotate-0.5" : "-rotate-0.5" %>">
+          <p class="text-lg font-space font-bold mb-2"><%= issue.title %></p>
+          <div class="flex flex-row">
             <% issue.labels.forEach((label) => { %>
-            <div
-              class="px-2 py-0.5 rounded-md -rotate-2"
-              style="background-color: #<%= label.color %>"
-            >
-              <span class="text-md font-space"><%= label.name %></span>
+            <div class="px-2 py-0.5 rounded-md -rotate-2" style="background-color: #<%= label.color %>">
+              <span class="text-md font-space <%= label.isDarkColor ? "text-white" : "text-ash" %>"><%= label.name %></span>
             </div>
             <% }); %>
           </div>
-          <% }); %>
         </div>
+        <% }); %>
+        <% } %>
       </div>
-      <% }); %>
-    </section>
-  </body>
+    </div>
+    <% }); %>
+  </section>
+</body>
+
 </html>

@@ -11,10 +11,12 @@ import {
   User,
 } from "@octokit/graphql-schema";
 import assert from "assert";
+import Color from "color";
 
 interface Label {
   name: string;
   color: string;
+  isDarkColor: boolean;
 }
 
 interface Issue {
@@ -121,14 +123,18 @@ const create = async (username: string, projectId: string) => {
       issue.fieldValueByName as ProjectV2ItemFieldSingleSelectValue;
     const statusName = fieldValue.name!;
     const title = issue.content.title;
-    const labels = issue.fieldValues
+    const labels: Label[] = issue.fieldValues
       .nodes!.filter(
         (fvNode) => fvNode!.__typename === "ProjectV2ItemFieldLabelValue"
       )
       .map((fvNode) => fvNode! as ProjectV2ItemFieldLabelValue)
       .map((fvNode) => fvNode.labels!.nodes!)
       .flat()
-      .map((lNode) => ({ name: lNode!.name, color: lNode!.color }));
+      .map((lNode) => ({
+        name: lNode!.name,
+        color: lNode!.color,
+        isDarkColor: Color(`#${lNode!.color}`).isDark(),
+      }));
 
     const parsedIssue: Issue = { title, labels };
     status.find((st) => st.name === statusName)?.issues.push(parsedIssue);
