@@ -6,13 +6,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link href="/styles.css" rel="stylesheet" />
   </head>
   <body class="flex-1">
-    <p class="flex-1 text-4xl font-bold text-center py-6 bg-ash text-white">
-      <%= title %>
-    </p>
+    <header>
+      <p
+        class="flex-1 text-4xl font-bold text-center py-6 bg-ash text-white font-marker"
+      >
+        <%= title %>
+      </p>
 
-    <p class="text-md font-regular p-4 italic"><%= description %></p>
+      <p class="text-md font-regular p-4 italic font-space">
+        <%= description %>
+      </p>
+    </header>
+
+    <section class="p-4">
+      <% project.status.forEach((status) => { %>
+      <div class="mb-8">
+        <p class="text-2xl font-bold font-marker mb-4"><%= status.name %></p>
+
+        <% status.issues.forEach((issue) => { %>
+        <div>
+          <p class="text-lg font-space font-bold"><%= issue.title %></p>
+          <div class="flex-row w-fit mb-4">
+            <% issue.labels.forEach((label) => { %>
+            <div
+              class="px-2 py-0.5 rounded-md -rotate-2"
+              style="background-color: #<%= label.color %>"
+            >
+              <span class="text-md font-space"><%= label.name %></span>
+            </div>
+            <% }); %>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+      <% }); %>
+    </section>
   </body>
 </html>

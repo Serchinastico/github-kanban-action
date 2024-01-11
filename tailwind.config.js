@@ -6,7 +6,12 @@ export default {
       ash: "#1E1F25",
       white: "#FFFFFF",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        marker: ["Permanent Marker", "cursive"],
+        space: ["Space Mono", "monospace"],
+      },
+    },
   },
   plugins: [],
 };
