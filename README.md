@@ -1,22 +1,20 @@
 # github-kanban-action
 
-This action automatically generates a static HTML page for your GitHub projects.
+This action automatically generates a static HTML page for your GitHub projects. There are two requirements:
+
+1. It only works with new GitHub projects.
+2. It only works with user projects (not organization ones just yet).
 
 ## Inputs
 
-### `username`
+### `project_url`
 
-**Required** The username that created the project. In my case it'd be `Serchinastico`.
-
-### `projectId`
-
-**Required** The project id, usually a number. If you want to know your own project id, just visit your project and extract it from the URL (e.g. For https://github.com/users/Serchinastico/projects/7, the `projectId` is `7`).
+**Required** The URL of your project (i.e. `https://github.com/users/Serchinastico/projects/7`)
 
 ## Example usage
 
 ```yaml
 uses: actions/github-kanban-action
 with:
-  username: "Serchinastico"
-  projectId: "7"
+  project-url: "https://github.com/users/Serchinastico/projects/7"
 ```

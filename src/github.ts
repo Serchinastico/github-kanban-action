@@ -1,10 +1,14 @@
 import core from "@actions/core";
-import github from "@actions/github";
 import { createKanbanPage } from "./ghkb";
 
 try {
-  const username = core.getInput("username");
-  const projectId = core.getInput("projectId");
+  const projectUrl = core.getInput("project-url");
+
+  const matches = projectUrl.match(
+    /github\.com\/users\/(\w+)\/projects\/(\d+)/
+  )!;
+  const username = matches[1];
+  const projectId = matches[2];
 
   createKanbanPage({ username, projectId, outFile: "out" });
 } catch (error: any) {

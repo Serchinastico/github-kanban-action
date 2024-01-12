@@ -7,11 +7,8 @@ branding:
   color: "yellow"
 
 inputs:
-  username:
-    description: "GitHub owner of the project"
-    required: true
-  project_id:
-    description: "Project numeric id"
+  project-url:
+    description: "The URL of the project you want to clone"
     required: true
 
 runs:
