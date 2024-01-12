@@ -1,13 +1,10 @@
-import { getInput, debug, setFailed } from "@actions/core";
+import { getInput, info, setFailed } from "@actions/core";
 import { getOctokit } from "@actions/github";
 import { createKanbanPage } from "./ghkb";
 
 try {
-  console.log("Testing");
   const projectUrl = getInput("project-url");
-  console.log("projectUrl", projectUrl);
   const token = getInput("token");
-  console.log("token", token);
 
   const matches = projectUrl.match(
     /github\.com\/users\/(\w+)\/projects\/(\d+)/
@@ -15,7 +12,7 @@ try {
   const username = matches[1];
   const projectId = matches[2];
 
-  debug(
+  info(
     `Extracted username (${username}) and project id (${projectId}) from project-url`
   );
 

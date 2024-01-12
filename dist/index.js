@@ -32537,10 +32537,10 @@ const createKanbanPage = ({ username, projectId, outFile, overrides, }) => __awa
         ? undefined
         : { headers: { authorization: `token ${process.env.GH_TOKEN}` } };
     const template = (_b = overrides === null || overrides === void 0 ? void 0 : overrides.htmlTemplateContents) !== null && _b !== void 0 ? _b : fs_1.default.readFileSync("template/index.ejs.html", "utf-8");
-    (0, core_1.debug)("About to query GitHub");
+    (0, core_1.info)("About to query GitHub");
     const { user } = yield gql((0, graphql_2.getQuery)({ username, projectId }), gqlOptions);
     (0, assert_1.default)((_c = user.projectV2) === null || _c === void 0 ? void 0 : _c.items.nodes);
-    (0, core_1.debug)(`Found project with ${user.projectV2.items.nodes.length} items`);
+    (0, core_1.info)(`Found project with ${user.projectV2.items.nodes.length} items`);
     const statusField = user.projectV2.field;
     const status = statusField.options
         .map((option) => option.name)
@@ -34562,15 +34562,12 @@ const core_1 = __nccwpck_require__(2186);
 const github_1 = __nccwpck_require__(5438);
 const ghkb_1 = __nccwpck_require__(1030);
 try {
-    console.log("Testing");
     const projectUrl = (0, core_1.getInput)("project-url");
-    console.log("projectUrl", projectUrl);
     const token = (0, core_1.getInput)("token");
-    console.log("token", token);
     const matches = projectUrl.match(/github\.com\/users\/(\w+)\/projects\/(\d+)/);
     const username = matches[1];
     const projectId = matches[2];
-    (0, core_1.debug)(`Extracted username (${username}) and project id (${projectId}) from project-url`);
+    (0, core_1.info)(`Extracted username (${username}) and project id (${projectId}) from project-url`);
     (0, ghkb_1.createKanbanPage)({
         username,
         projectId,
