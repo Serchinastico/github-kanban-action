@@ -1,0 +1,19 @@
+name: "GitHub Kanban"
+description: "Generates a static HTML page for your GitHub project"
+author: "Serchinastico"
+
+branding:
+  icon: "map"
+  color: "yellow"
+
+inputs:
+  username:
+    description: "GitHub owner of the project"
+    required: true
+  project_id:
+    description: "Project numeric id"
+    required: true
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
