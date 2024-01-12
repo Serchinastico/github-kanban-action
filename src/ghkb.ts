@@ -11,85 +11,37 @@ import {
 import assert from "assert";
 import Color from "color";
 import { Issue, Label, Project, Status } from "./domain";
+import { getQuery } from "./graphql";
 
 interface Props {
   username: string;
   projectId: string;
   outFile: string;
+  overrides?: {
+    graphql: typeof graphql;
+    htmlTemplateContents: string;
+    style: string;
+  };
 }
 
 export const createKanbanPage = async ({
   username,
   projectId,
   outFile,
+  overrides,
 }: Props) => {
-  const template = fs.readFileSync("template/index.ejs.html", "utf-8");
+  const gql = overrides?.graphql ?? graphql;
+  const gqlOptions = overrides?.graphql
+    ? undefined
+    : { headers: { authorization: `token ${process.env.GH_TOKEN}` } };
 
-  const { user } = await graphql<{ user: User }>(
-    `
-        {
-          user(login: "${username}") {
-            projectV2 (number: ${projectId}) {
-              title
-              shortDescription
-              field(name: "Status") {
-                ... on ProjectV2SingleSelectField {
-                  name
-                  options {
-                    id
-                    name
-                  }
-                }
-              }
-              items(first: 50) {
-                nodes {
-                  content {
-                    __typename
-                    ... on DraftIssue {
-                      id
-                      title
-                    }
-                    ... on Issue {
-                      id
-                      title
-                      url
-                    }
-                  }
-                  fieldValueByName(name: "Status") {
-                    ... on ProjectV2ItemFieldSingleSelectValue {
-                      name
-                      field {
-                        ... on ProjectV2SingleSelectField {
-                          name
-                        }
-                      }
-                    }
-                  }
-                  
-                  fieldValues(first: 50) {
-                    nodes {
-                      __typename
-                      ... on ProjectV2ItemFieldLabelValue {
-                        labels(first: 50) {
-                          nodes {
-                            color
-                            name
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      `,
-    {
-      headers: {
-        authorization: `token ${process.env.GH_TOKEN}`,
-      },
-    }
+  const template =
+    overrides?.htmlTemplateContents ??
+    fs.readFileSync("template/index.ejs.html", "utf-8");
+
+  const { user } = await gql<{ user: User }>(
+    getQuery({ username, projectId }),
+    gqlOptions
   );
 
   assert(user.projectV2?.items.nodes);
@@ -130,6 +82,7 @@ export const createKanbanPage = async ({
     title: user.projectV2?.title,
     description: user.projectV2?.shortDescription,
     project,
+    style: overrides?.style,
   });
 
   if (outFile) {

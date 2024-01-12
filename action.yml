@@ -7,6 +7,9 @@ branding:
   color: "yellow"
 
 inputs:
+  token:
+    description: "A personal access token with access to project, read:user and repo permissions"
+    required: true
   project-url:
     description: "The URL of the project you want to clone"
     required: true
