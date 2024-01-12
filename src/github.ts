@@ -1,10 +1,13 @@
 import { getInput, debug, setFailed } from "@actions/core";
-import github from "@actions/github";
+import { getOctokit } from "@actions/github";
 import { createKanbanPage } from "./ghkb";
 
 try {
+  console.log("Testing");
   const projectUrl = getInput("project-url");
+  console.log("projectUrl", projectUrl);
   const token = getInput("token");
+  console.log("token", token);
 
   const matches = projectUrl.match(
     /github\.com\/users\/(\w+)\/projects\/(\d+)/
@@ -21,7 +24,7 @@ try {
     projectId,
     outFile: "out",
     overrides: {
-      graphql: github.getOctokit(token).graphql,
+      graphql: getOctokit(token).graphql,
       htmlTemplateContents: `<!DOCTYPE html>
 <html lang="en">
 
