@@ -3,14 +3,18 @@ import github from "@actions/github";
 import { createKanbanPage } from "./ghkb";
 
 try {
-  const token = core.getInput("token");
   const projectUrl = core.getInput("project-url");
+  const token = core.getInput("token");
 
   const matches = projectUrl.match(
     /github\.com\/users\/(\w+)\/projects\/(\d+)/
   )!;
   const username = matches[1];
   const projectId = matches[2];
+
+  core.debug(
+    `Extracted username (${username}) and project id (${projectId}) from project-url`
+  );
 
   createKanbanPage({
     username,

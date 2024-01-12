@@ -12,6 +12,7 @@ import assert from "assert";
 import Color from "color";
 import { Issue, Label, Project, Status } from "./domain";
 import { getQuery } from "./graphql";
+import core from "@actions/core";
 
 interface Props {
   username: string;
@@ -39,12 +40,15 @@ export const createKanbanPage = async ({
     overrides?.htmlTemplateContents ??
     fs.readFileSync("template/index.ejs.html", "utf-8");
 
+  core.debug("About to query GitHub");
   const { user } = await gql<{ user: User }>(
     getQuery({ username, projectId }),
     gqlOptions
   );
 
   assert(user.projectV2?.items.nodes);
+
+  core.debug(`Found project with ${user.projectV2.items.nodes.length} items`);
 
   const statusField = user.projectV2.field as ProjectV2SingleSelectField;
   const status: Status[] = statusField.options
