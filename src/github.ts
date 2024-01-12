@@ -1,10 +1,10 @@
-import core from "@actions/core";
+import { getInput, debug, setFailed } from "@actions/core";
 import github from "@actions/github";
 import { createKanbanPage } from "./ghkb";
 
 try {
-  const projectUrl = core.getInput("project-url");
-  const token = core.getInput("token");
+  const projectUrl = getInput("project-url");
+  const token = getInput("token");
 
   const matches = projectUrl.match(
     /github\.com\/users\/(\w+)\/projects\/(\d+)/
@@ -12,7 +12,7 @@ try {
   const username = matches[1];
   const projectId = matches[2];
 
-  core.debug(
+  debug(
     `Extracted username (${username}) and project id (${projectId}) from project-url`
   );
 
@@ -100,5 +100,5 @@ try {
     },
   });
 } catch (error: any) {
-  core.setFailed(error.message);
+  setFailed(error.message);
 }

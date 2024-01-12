@@ -32592,16 +32592,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __importDefault(__nccwpck_require__(2186));
+const core_1 = __nccwpck_require__(2186);
 const github_1 = __importDefault(__nccwpck_require__(5438));
 const ghkb_1 = __nccwpck_require__(1030);
 try {
-    const projectUrl = core_1.default.getInput("project-url");
-    const token = core_1.default.getInput("token");
+    const projectUrl = (0, core_1.getInput)("project-url");
+    const token = (0, core_1.getInput)("token");
     const matches = projectUrl.match(/github\.com\/users\/(\w+)\/projects\/(\d+)/);
     const username = matches[1];
     const projectId = matches[2];
-    core_1.default.debug(`Extracted username (${username}) and project id (${projectId}) from project-url`);
+    (0, core_1.debug)(`Extracted username (${username}) and project id (${projectId}) from project-url`);
     (0, ghkb_1.createKanbanPage)({
         username,
         projectId,
@@ -32687,7 +32687,7 @@ try {
     });
 }
 catch (error) {
-    core_1.default.setFailed(error.message);
+    (0, core_1.setFailed)(error.message);
 }
 
 
