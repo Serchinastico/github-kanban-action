@@ -34564,6 +34564,7 @@ const ghkb_1 = __nccwpck_require__(1030);
 try {
     const projectUrl = (0, core_1.getInput)("project-url");
     const token = (0, core_1.getInput)("token");
+    const outFile = (0, core_1.getInput)("out-html-file");
     const matches = projectUrl.match(/github\.com\/users\/(\w+)\/projects\/(\d+)/);
     const username = matches[1];
     const projectId = matches[2];
@@ -34571,7 +34572,7 @@ try {
     (0, ghkb_1.createKanbanPage)({
         username,
         projectId,
-        outFile: "out",
+        outFile,
         overrides: {
             graphql: (0, github_1.getOctokit)(token).graphql,
             htmlTemplateContents: `<!DOCTYPE html>

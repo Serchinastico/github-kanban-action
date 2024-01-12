@@ -5,6 +5,7 @@ import { createKanbanPage } from "./ghkb";
 try {
   const projectUrl = getInput("project-url");
   const token = getInput("token");
+  const outFile = getInput("out-html-file");
 
   const matches = projectUrl.match(
     /github\.com\/users\/(\w+)\/projects\/(\d+)/
@@ -19,7 +20,7 @@ try {
   createKanbanPage({
     username,
     projectId,
-    outFile: "out",
+    outFile,
     overrides: {
       graphql: getOctokit(token).graphql,
       htmlTemplateContents: `<!DOCTYPE html>

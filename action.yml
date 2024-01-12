@@ -13,6 +13,10 @@ inputs:
   project-url:
     description: "The URL of the project you want to clone"
     required: true
+  out-html-file:
+    description: "The name of the output HTML file"
+    required: false
+    default: "index.html"
 
 runs:
   using: "node20"
