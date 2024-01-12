@@ -80,9 +80,9 @@ try {
         <% status.issues.forEach((issue) => { %>
         <div class="shadow-md rounded-md mt-4 py-3 px-4 bg-white <%= Math.random() < 0.5 ? "rotate-0.5" : "-rotate-0.5" %>">
           <p class="text-lg font-space font-bold mb-2"><%= issue.title %></p>
-          <div class="flex flex-row">
+          <div class="flex flex-row flex-wrap">
             <% issue.labels.forEach((label) => { %>
-            <div class="px-2 py-0.5 rounded-md -rotate-2" style="background-color: #<%= label.color %>">
+            <div class="px-2 py-0.5 rounded-md -rotate-2 mr-2 mb-2" style="background-color: #<%= label.color %>">
               <span class="text-md font-space <%= label.isDarkColor ? "text-white" : "text-ash" %>"><%= label.name %></span>
             </div>
             <% }); %>
