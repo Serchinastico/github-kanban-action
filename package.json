@@ -1,6 +1,6 @@
 {
   "name": "ghkb",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Script to generate a static HTML Kanban view from a GitHub project",
   "author": "Serchinastico",
   "main": "src/index.ts",
