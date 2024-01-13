@@ -13,7 +13,11 @@
     "dev:code": "npx nodemon src/index.ts create serchinastico 5",
     "dev:css": "npx tailwindcss -i ./template/styles.css -o ./out/styles.css --watch",
     "dev:out": "live-server out",
-    "package": "ncc build src/github.ts"
+    "package": "run-s package:css package:embed package:bundle package:clean",
+    "package:css": "npx tailwindcss -m -i ./template/styles.css -o ./out/styles.css",
+    "package:embed": "ts-node scripts/embedAssets.ts",
+    "package:bundle": "ncc build tmp/github.ts",
+    "package:clean": "rm -rf tmp"
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
