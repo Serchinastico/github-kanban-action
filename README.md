@@ -7,7 +7,7 @@ This action automatically generates a static HTML page for your GitHub projects.
 
 ## Inputs
 
-### `project_url`
+### `project-url`
 
 **Required** The URL of your project (i.e. `https://github.com/users/Serchinastico/projects/7`)
 
