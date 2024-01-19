@@ -33,7 +33,7 @@
 
   <section class="p-4 flex flex-col md:flex-row">
     <% project.status.forEach((status) => { %>
-    <div class="mb-8 flex-1" x-data="{ isOpen: true }">
+    <div class="mb-8 flex-1 md:px-4" x-data="{ isOpen: true }">
       <div class="flex flex-row items-center mb-4 cursor-pointer" @click="isOpen = !isOpen">
         <div class="text-2xl font-bold font-marker"><%= status.name %></div>
         <div x-show="!isOpen" class="ml-2">

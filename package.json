@@ -7,10 +7,10 @@
   "scripts": {
     "build": "run-s build:dir build:code build:css",
     "build:dir": "mkdir -p out",
-    "build:code": "tsx src/index.ts -- create serchinastico 5",
+    "build:code": "tsx src/index.ts -- create serchinastico 7",
     "build:css": "npx tailwindcss -m -i ./template/styles.css -o ./out/styles.css",
     "dev": "run-p dev:css dev:code dev:out",
-    "dev:code": "npx nodemon src/index.ts create serchinastico 5",
+    "dev:code": "npx nodemon src/index.ts create serchinastico 7",
     "dev:css": "npx tailwindcss -i ./template/styles.css -o ./out/styles.css --watch",
     "dev:out": "live-server out",
     "package": "run-s package:css package:embed package:bundle package:clean",

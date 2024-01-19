@@ -28,7 +28,9 @@ const main = async () => {
     encoding: "utf-8",
   });
 
-  const normalizedCssContents = cssContents.replace("\\", "\\\\");
+  const normalizedCssContents = cssContents
+    .replace(":", "\\:")
+    .replace("\\", "\\\\");
 
   const fileWithReplacements = contents
     .replace(
