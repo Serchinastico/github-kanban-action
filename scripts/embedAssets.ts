@@ -29,8 +29,8 @@ const main = async () => {
   });
 
   const normalizedCssContents = cssContents
-    .replace(".md:", ".md\\:")
-    .replace("\\", "\\\\");
+    .replace("\\", "\\\\")
+    .replace(".md:", ".md\\\\:");
 
   const fileWithReplacements = contents
     .replace(
