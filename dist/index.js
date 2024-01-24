@@ -32549,6 +32549,8 @@ const createKanbanPage = ({ username, projectId, outFile, overrides, }) => __awa
         (0, assert_1.default)(issue);
         (0, assert_1.default)(issue.content);
         const fieldValue = issue.fieldValueByName;
+        if (!fieldValue)
+            continue;
         const statusName = fieldValue.name;
         const title = issue.content.title;
         const labels = issue.fieldValues
