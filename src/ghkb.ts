@@ -61,6 +61,9 @@ export const createKanbanPage = async ({
 
     const fieldValue =
       issue.fieldValueByName as ProjectV2ItemFieldSingleSelectValue;
+
+    if (!fieldValue) continue;
+
     const statusName = fieldValue.name!;
     const title = issue.content.title;
     const labels: Label[] = issue.fieldValues
